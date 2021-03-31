@@ -3,7 +3,7 @@ import requests
 import orodja
 import os
 
-
+htmlji = ['podjetja.html', 'podjetja1.html', 'podjetja2.html', 'podjetja3.html', 'podjetja4.html', 'podjetja5.html', 'podjetja6.html', 'podjetja7.html', 'podjetja8.html', 'podjetja9.html', 'podjetja10.html', 'podjetja11.html', 'podjetja12.html', 'podjetja13.html', 'podjetja14.html', ]
 vzorec_stevila_vrstic = re.compile(
     r'(?P<stevilo><tr><th>Finančni podatki</th></tr>.*?(<tr><td.*?>.*?</td></tr>.*?)*?<tr><td.*?>Promet</td></tr>)',
     flags= re.DOTALL
@@ -38,7 +38,7 @@ def stetje_vrstic(datoteka):
 
 
 
-ime_dejavnosti = "Kmetijstvo in lov, gozdarstvo, ribištvo"
+ime_dejavnosti = "A do C"
 url ="https://www.stop-neplacniki.si/podjetja-v-ljubljani/"
 vzorec = (
     r"besedilo: '.*?', link: '(?P<naslov>.*?)'"
@@ -62,10 +62,10 @@ naslovi = []
 #with open('podjetja.html', 'w') as f:
 #    f.write(vsebina)
 
-with open('podjetja.html') as f:
-        vsebina = f.read()
-        for zadetek in re.finditer(vzorec, vsebina):
-            naslovi.append(zadetek.groupdict()) 
+for html in htmlji:
+    vsebina = orodja.vsebina_datoteke(html)
+    for zadetek in re.finditer(vzorec, vsebina):
+        naslovi.append(zadetek.groupdict()) 
 
 #os.remove('podjetja.html')
 
